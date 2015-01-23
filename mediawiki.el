@@ -903,6 +903,13 @@ the base URI of the wiki engine as well as group and page name.")
    ;; Preformatted text
    (cons "^ .*$" '(0 font-lock-constant-face t t))
 
+   ;; Semantic Mediawiki:
+   ;; subqueries
+   '("\\(<q>\\)\\([^<].*\\)\\(</q>\\)"
+     (1 font-lock-builtin-face t t)
+     (2 font-lock-keyword-face t t)
+     (3 font-lock-builtin-face t t))
+
    ;; Math environment (uniform highlight only, no TeX markup)
    (list "<math>\\(\\(\n?.\\)*\\)</math>"
          '(1 font-lock-keyword-face t t))))
@@ -1656,6 +1663,11 @@ surrounds region."
   "Insert subheader  via  == (e.g. == FOO ==.)"
   (interactive)
   (mediawiki-insert "==" "=="))
+
+(defun smw-insert-subquery ()
+  "Insert subquery via <q> (e.g. <q></q>.) When mark is active, surround region."
+  (interactive)
+  (mediawiki-insert "<q>" "</q>"))
 
 (defun mediawiki-insert-link ()
   "Insert link via [[ (e.g. [[FOO]].) When mark is active, surround region."
